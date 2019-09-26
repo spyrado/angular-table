@@ -1,0 +1,273 @@
+.table {
+  th{
+    border-top: none;
+  }
+  thead{
+    th{
+      border-bottom: none;
+    }
+  } 
+
+  &--confirm-button,
+  &--cancel-button{
+    display: inline-block;
+    width: 23px;
+    height: 23px;
+    cursor: pointer;
+  }
+  &--confirm-button{
+    background-image: url('../../../../assets/images/icons/confirm-button.svg')  
+  }
+  &--cancel-button{
+    background-image: url('../../../../assets/images/icons/cancel-button.svg')  
+  }
+
+  &--show {
+    display: table-row !important;
+  }
+  &--rotate{
+    transform: rotate(180deg);
+  }
+  &--arrow-outline-down{
+    position: relative;
+    cursor: pointer;
+    display: inline-block;
+    width: 11px;
+    height: 6px;
+    background-image: url(../../../../assets/images/icons/arrow.svg);
+    margin-left: 1rem;
+
+    &::before{
+      content: '';
+      display: block;
+      padding: 1rem;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+  &--arrow-outline-down.up{
+    transform: rotate(180deg);
+  }
+  &--arrow-outline-down.down{
+    transform: rotate(0deg);
+  }
+  &__header {
+    background-color: #EAEAEA;
+    height: 25px;
+    &--width{
+      width: 38px;
+    }
+    &--color{
+      background-color: #B2DBB2;
+    }
+  }
+
+  &__title {
+    color: black;
+    padding: 0.2rem 0.75rem;
+    &--arrow-down {
+      width: 0;
+      height: 0;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-top: 5px solid black;
+      transition: transform .1s ease-in;
+      &::after{
+        content: '';
+        display: block;
+        padding: 10px;
+        position: relative;
+        top: -13px;
+        left: -10px;
+        cursor: pointer;
+      }
+    }
+  }
+
+  &__tooltip-content{
+
+  }
+
+  &__label{
+    color: theme-color("primary");
+  }
+
+  .arrow-outline-down{
+    
+      width: 6vmin;
+      height: 6vmin;
+      box-sizing: border-box;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: rotate(-225deg);
+      vertical-align: middle;
+      
+      &::before {
+        content: '';
+        width: 100%;
+        height: 100%;
+        border-width: .8vmin .8vmin 0 0;
+        border-style: solid;
+        border-color: #fafafa;
+        transition: .2s ease;
+        display: block;
+        transform-origin: 100% 0;
+      }
+    
+      
+      &:after {
+        content: '';
+        float: left;
+        position: relative;
+        top: -100%;
+        width: 100%;
+        height: 100%;
+        border-width: 0 .8vmin 0 0;
+        border-style: solid;
+        border-color: #fafafa;
+        transform-origin: 100% 0;
+        transition:.2s ease;
+      }
+  }
+  &__child{
+    display: none;
+  }
+
+  &--active{
+    transform: rotate(180deg);
+  }
+
+  &__row{
+    &:hover .table__list{
+      opacity: 1;
+    }
+  }
+  &__row-child{
+    &:hover .table__list{
+      opacity: 1;
+    }
+  }
+
+  &__list{
+    opacity: 1;
+    display: inline-block;
+    transition: opacity .3s ease-in;
+  }
+
+  &__item {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 .5rem;
+  }
+
+  &__icon{
+    cursor: pointer;
+    display: inline-block;
+    vertical-align: middle;
+    background-repeat: no-repeat;
+    &--info-grey{
+      background-image: url(../../../../assets/images/icons/info-gray.svg);
+      width: 21px;
+      height: 21px;
+    }
+    &--add{
+      background-image: url(../../../../assets/images/icons/add-file.svg);
+      width: 20px;
+      height: 22px;
+      vertical-align: text-top;
+    }
+    &--mail{
+      background-image: url(../../../../assets/images/icons/email.svg);
+      width: 20px;
+      height: 15px;
+    }
+    &--trash{
+      background-image: url(../../../../assets/images/icons/lixo.svg);
+      width: 17px;
+      height: 21px;
+    }
+    &--edit{
+      background-image: url(../../../../assets/images/icons/edit.svg);
+      width: 20px;
+      height: 22px;
+      vertical-align: text-top;
+    }
+  }
+}
+
+
+// SOBRESCREVENDO TOOLTIP NGX BOOTSTRAP
+:host ::ng-deep .tooltip-inner {
+  background-color: $gray-700;
+  color: $white;
+  box-shadow: $gray-500 0px 2px 6px;
+}
+:host ::ng-deep .tooltip.top .tooltip-arrow {
+  border-top-color: $gray-700;
+  border-bottom-color: $gray-700;
+}
+:host ::ng-deep .bs-tooltip-left .arrow::before,
+.bs-tooltip-auto[x-placement^="left"] .arrow::before{
+  border-left-color: $gray-700;
+}
+:host ::ng-deep .bs-tooltip-bottom .arrow::before,
+.bs-tooltip-auto[x-placement^="bottom"] .arrow::before{
+  border-bottom-color: $gray-700;
+}
+/* Estilo diferente com icone informativo (table__icon--info-grey) */
+:host .table__icon--info-grey + ::ng-deep bs-tooltip-container .tooltip-inner{
+  max-width: 450px;
+  background-color: $white;
+  color: inherit;
+}
+:host .table__icon--info-grey + ::ng-deep bs-tooltip-container{
+  opacity: 1;
+  left: 0px !important;
+}
+:host .table__icon--info-grey + ::ng-deep .bs-tooltip-left .arrow::before,
+:host .table__icon--info-grey + ::ng-deep .bs-tooltip-auto[x-placement^="left"] .arrow::before{
+  border-left-color: $white !important;
+}
+
+/* REMOVER DO CORE */
+.tooltip-custom {
+  position: relative;
+  display: inline-block;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+.tooltip-custom .tooltiptext-custom {
+  opacity: 0.9;
+  visibility: hidden;
+  font-family: inherit;
+  width: auto;
+  background-color: $gray-700;
+  color: $white;
+  text-align: center;
+  border-radius: 0.25rem;
+  padding: 0.25rem 0.5rem;
+  position: absolute;
+  z-index: 1;
+  top: 137%;
+  left: 50%;
+  margin-left: -40px;
+  box-shadow: $gray-500 0px 2px 6px;
+}
+
+.tooltip-custom .tooltiptext-custom::after {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 0 0.4rem 0.4rem;
+  border-style: solid;
+  border-color: transparent transparent $gray-700 transparent;
+}
+
+.tooltip-custom:hover .tooltiptext-custom {
+  visibility: visible;
+}

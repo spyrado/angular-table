@@ -1,0 +1,19 @@
+<app-table 
+  [titles]="titles"
+  [childTitles]="childTitles"
+  [hasCheckbox]="true"
+  [hasCollapse]="true"
+  [hasDuplicate]="true"
+  [data]="data"
+  [tableChildPropertyName]="tableChildPropertyName"
+  [dontShowParentColumn]="['id','isSelected','info', 'valorNota']"
+  [dontShowChildColumn]="['id','isSelected']"
+  (selectedItems)="onSelect($event)">
+</app-table>
+
+<div 
+  class="duplicate-fixed-card d-flex p-3 justify-content-center align-items-center bg-primary text-white fixed-bottom font-size-lg"
+  [ngClass]="{'duplicate-fixed-card--up': duplicateSelected}">
+  <p class="mb-0"><strong>{{duplicateSelected?.selecteds}} </strong> Duplicata{{amountDuplicatesSelecteds()}} Selecionada{{amountDuplicatesSelecteds()}} |<b> {{ duplicateSelected?.amount }}</b></p>
+  <button class="btn btn-outline-primary border border-white text-white font-size-sm p-2 ml-4">SOLICITAR ANTECIPAÇÃO SEM COMPROMISSO</button>
+</div>

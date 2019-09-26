@@ -1,0 +1,9 @@
+.duplicate-fixed-card{
+  bottom: -100px;
+  opacity: 0;
+  transition: all .3s ease-in;
+  &--up{
+    opacity: 1;
+    bottom: 0px;
+  }
+}

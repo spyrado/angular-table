@@ -1,0 +1,69 @@
+<table class="table">
+  <thead class="table__header">
+    <tr>
+      <th
+        *ngIf="hasCheckbox"
+        class="table__title font-size-sm text-center table__header--width" scope="col">
+        <input class="align-middle" [(ngModel)]="masterSelected" type="checkbox" name="" id="title" (change)="checkUncheckAll()">
+      </th>
+      <th
+        scope="col" class="table__title font-size-sm" *ngFor="let title of titles; index as i;">
+        {{ title.name }}<i appArrowDownUp class="ml-1 table__title--arrow-down d-inline-block align-middle" (click)="sortable(title.property)"></i>
+      </th>
+      <th *ngIf="hasCollapse"></th>
+    </tr>
+  </thead>
+  <tbody *ngFor="let item of data; index as x; trackBy: trackByFn">
+    <tr class="table__row">
+      <td class="font-size-md" *ngIf="hasCheckbox">
+        <input type="checkbox" [(ngModel)]="item.isSelected" name="" id="{{x}}" (change)="checkChildTable($event.target);">
+      </td>
+      <td class="font-size-md" [innerHTML]="item[list]" *ngFor="let list of item | keys: dontShowParentColumn; index as y; trackBy: trackByFn"></td>
+      <td *ngIf="hasCollapse" class="font-size-md text-right">
+        <i class="table--arrow-outline-down" #arrowOutline [appCollapseTable]="tableChild"></i>
+      </td>
+    </tr>
+    <tr #tableChild class="table__child" id={{x}}>
+      <td [attr.colspan]="colLenght" class="p-0" *ngIf="hasCollapse">
+        <table class="table">
+          <thead class="table__header table__header--color">
+            <tr id="{{x}}" #childTitlesView>
+              <th
+                *ngIf="hasCheckbox"
+                class="table__title font-size-sm text-center table__header--width" scope="col">
+              </th>
+              <th scope="col" 
+                *ngFor="let childTitle of childTitles"
+                class="table__title font-size-sm">{{ childTitle.name }} 
+                <i 
+                  appArrowDownUp 
+                  class="ml-1 table__title--arrow-down d-inline-block align-middle" 
+                  (click)="sortableChilds(childTitle.property, $event.target)">
+                </i> 
+              </th>
+              <th class="table__title font-size-sm"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="table__row-child" *ngFor="let childItem of item[tableChildPropertyName]; index as y; trackBy: trackByFn">
+              <td class="font-size-md" *ngIf="hasCheckbox">
+                <input type="checkbox" [(ngModel)]="childItem.isSelected" (change)="getCheckedItemList();" name="" id="{{x}}{{y}}">
+              </td>
+              <td  class="font-size-md" [innerHTML]="childItem[list]" *ngFor="let list of childItem | keys: dontShowChildColumn;"></td>
+              <td class="text-right">
+                <ul class="table__list list-unstyled mb-0" *ngIf="item[tableChildPropertyName].length !== 1">
+                  <li class="table__item">
+                    <i class="table__icon table__icon--edit" tooltip="Editar" placement="bottom"></i>
+                  </li>
+                  <li class="table__item">
+                    <i class="table__icon table__icon--trash" tooltip="Excluir" (click)="excludeDuplicateItem(childItem, item)" placement="bottom"></i>
+                  </li>
+                </ul>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </td>
+    </tr>
+  </tbody>
+</table>
